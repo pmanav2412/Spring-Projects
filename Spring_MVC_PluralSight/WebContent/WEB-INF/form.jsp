@@ -12,11 +12,11 @@
 <h2><spring:message code="lbl.title"/></h2>
 
 	<form:form method="post" action="seedata" modelAttribute="account">
-		<spring:message code="lbl.accountNo"></spring:message>
+		<spring:message code="lbl.firstName"></spring:message>
 		<br>
 		<form:input path="firstname" />
 		<br>
-		<spring:message code="lbl.accountHolderName"></spring:message>
+		<spring:message code="lbl.lastName"></spring:message>
 		<br>
 		<form:input path="lastname" />
 		<br>

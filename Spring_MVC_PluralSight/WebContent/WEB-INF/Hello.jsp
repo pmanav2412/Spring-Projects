@@ -10,7 +10,7 @@
 </head>
 <body>
 <h1>Hello</h1>
-<a href="data">add</a><br>
+<a href="User/new">add</a><br>
 ${acc.firstname} <br>
 <h2>${acc.lastname}</h2>
 </body>
