@@ -6,6 +6,7 @@
 	<artifactId>Spring_MVC_PluralSight</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<dependencies>
+	
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
