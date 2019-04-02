@@ -1,20 +1,16 @@
 package com.demo.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.xml.ws.BindingType;
 
-import org.springframework.http.HttpRequest;
+import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.HttpRequestHandler;
-
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.demo.entity.Account;
 import com.demo.model.account;
 
 @Controller
@@ -30,8 +26,8 @@ public class ApplicationController {
 	
 	@RequestMapping("/data")
 	public String SeeHello(Model model) {
-		model.addAttribute("Account", new account());
-		return "form";
+		model.addAttribute("Account", new Account());
+		return "AccountDetail-Form";
 		
 	}
 	
@@ -43,5 +39,7 @@ public class ApplicationController {
 		return "Hello";
 		
 	}
+	
+	
 	
 }

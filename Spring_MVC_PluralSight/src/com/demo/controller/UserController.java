@@ -1,14 +1,30 @@
 package com.demo.controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.demo.Services.AccountService;
+import com.demo.entity.Account;
+
 @Controller
-@RequestMapping("/User")
 public class UserController {
+	
+	
+	@Autowired
+	AccountService accountService;
 	
 	@RequestMapping("/new")
     public String newUser() {
@@ -35,4 +51,51 @@ public class UserController {
 //    	model.addAttribute("username", username);
 		return "Error";
     }
+	
+	
+
+	@PostMapping(value="/saveData")
+	public String SeaHello( @Valid @ModelAttribute("Account") Account account, BindingResult result) {
+	
+		accountService.saveAccount(account);
+		
+		if(result.hasErrors())
+		return "AccountDetail-Form";
+	else
+		return "Hello";
+		
+	}
+	
+	@GetMapping(value="/allData")
+	public String getAll(Model model){
+		
+		List<Account> allData =accountService.getAllUser();
+		for(Account a:allData){
+			System.out.println(a.getAccHoldername() + "  " + a.getBalance() );
+		}
+	model.addAttribute("accounts", allData);
+		return "allUsers";
+	}
+	
+	
+	@GetMapping(value="/edit")
+	public String updateAccount(@RequestParam("accountNo") int accountNo,Model model ) {
+		
+		
+		Account account = accountService.getAccount(accountNo);
+		
+		model.addAttribute("Account", account);
+		
+		return "AccountDetail-Form";
+	}
+	
+	
+	@GetMapping(value="/delete")
+	public String deleteAccount(@RequestParam("accountNo") int accountNo,Model model ) {
+		
+		
+		Account account = accountService.deleteAccount(accountNo);
+	
+		return "redirect:/allData";
+	}
 }
