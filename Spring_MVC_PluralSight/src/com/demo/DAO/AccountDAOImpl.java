@@ -55,7 +55,7 @@ public class AccountDAOImpl implements AccountDAO{
 	}
 
 	@Override
-	public Account getAccount(int accountNo) {
+	public Account getAccount(Integer accountNo) {
 		Account account = new Account();
 		try {
 			Session session= sessionFactory.openSession();

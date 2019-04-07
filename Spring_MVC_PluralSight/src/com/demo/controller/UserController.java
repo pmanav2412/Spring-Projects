@@ -3,7 +3,7 @@ package com.demo.controller;
 import java.util.List;
 
 import javax.validation.Valid;
-
+import org.apache.tomcat.util.http.parser.MediaType;
 import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.demo.Services.AccountService;
 import com.demo.entity.Account;
@@ -94,8 +96,18 @@ public class UserController {
 	public String deleteAccount(@RequestParam("accountNo") int accountNo,Model model ) {
 		
 		
-		Account account = accountService.deleteAccount(accountNo);
+		 accountService.deleteAccount(accountNo);
 	
 		return "redirect:/allData";
+	}
+	
+
+	@RequestMapping(value="/{id}", method = RequestMethod.GET)
+	public @ResponseBody Account jsonData(@PathVariable("id")Integer accNo) {
+		System.out.println(accNo+ " Here It is!");
+		
+		Account account = accountService.getAccount(accNo);
+		System.out.println(account.getAccHoldername()+ " name is");
+		return account;
 	}
 }

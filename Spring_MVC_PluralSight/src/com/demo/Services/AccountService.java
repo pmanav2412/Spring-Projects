@@ -14,7 +14,7 @@ public interface AccountService {
 	
 	public List<Account> getAllUser();
 
-	public Account getAccount(int accountNo);
+	public Account getAccount(Integer accountNo);
 
 	public Account deleteAccount(int accountNo);
 }

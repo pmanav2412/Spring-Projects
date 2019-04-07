@@ -36,7 +36,7 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	@Transactional
-	public Account getAccount(int accountNo) {
+	public Account getAccount(Integer accountNo) {
 		Account account = (Account)accountDAO.getAccount(accountNo);
 		return account;
 	}
