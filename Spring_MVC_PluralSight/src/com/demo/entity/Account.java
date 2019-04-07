@@ -2,6 +2,7 @@ package com.demo.entity;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JacksonAnnotationValue;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializable;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -17,6 +20,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @SuppressWarnings("serial")
 @Entity
 @Table(name="Account_Details")
@@ -100,7 +104,7 @@ public class Account implements Serializable {
 		this.accountType = accountType;
 	}
 
-	@JsonSerialize(using=DateSerializer.class)
+//	@JsonSerialize(using=DateSerializer.class)
 	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
@@ -123,6 +127,9 @@ public class Account implements Serializable {
 				"Account [accNo=%s, accHoldername=%s, balance=%s, accountType=%s, dateOfBirth=%s, PsCode=%s]", accNo,
 				accHoldername, balance, accountType, dateOfBirth, PsCode);
 	}
+
+
+	
 
 	
 	

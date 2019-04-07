@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.demo.Services.AccountService;
 import com.demo.entity.Account;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 @Controller
 public class UserController {
@@ -105,6 +107,8 @@ public class UserController {
 	@RequestMapping(value="/{id}", method = RequestMethod.GET)
 	public @ResponseBody Account jsonData(@PathVariable("id")Integer accNo) {
 		System.out.println(accNo+ " Here It is!");
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		
 		Account account = accountService.getAccount(accNo);
 		System.out.println(account.getAccHoldername()+ " name is");
