@@ -70,6 +70,17 @@ public class UserController {
 		
 	}
 	
+//	@GetMapping(value="/allData")
+//	public @ResponseBody List<Account> getAll(Model model){
+//		
+//		List<Account> allData =accountService.getAllUser();
+//		for(Account a:allData){
+//			System.out.println(a.getAccHoldername() + "  " + a.getBalance() );
+//		}
+//	model.addAttribute("accounts", allData);
+//		return allData;
+//	}
+	
 	@GetMapping(value="/allData")
 	public String getAll(Model model){
 		

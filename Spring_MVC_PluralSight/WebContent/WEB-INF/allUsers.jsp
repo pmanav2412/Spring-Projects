@@ -19,7 +19,7 @@
   	<td>${Account.accNo}</td>
   	<td>${Account.accHoldername}</td>
   	<td><a href="${editLink} ">Edit</a></td>
-  	<td><a href="${deleteLink} ">Delete</a></td>
+  	<td><a href="${deleteLink} " >Delete</a></td>
   </tr><br>
 
 </c:forEach>
