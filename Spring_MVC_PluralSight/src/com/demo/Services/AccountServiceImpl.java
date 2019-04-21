@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.DAO.AccountDAO;
 import com.demo.entity.Account;
+import com.demo.repository.AccountRepo;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -17,11 +18,17 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired
 	AccountDAO accountDAO;
 	
+	@Autowired
+	AccountRepo acr;
+	
+	
+	
 	
 	@Override
 	@Transactional
 	public boolean saveAccount(Account account) {
 		accountDAO.saveAccount(account);
+
 		return true;
 	}
 

@@ -22,16 +22,17 @@ public class AccountDAOImpl implements AccountDAO{
 	@Override
 	public boolean saveAccount(Account account) {
 		boolean saveFlag = true;
-		Account ac = new Account();
-		ac.setAccNo(account.getAccNo());
-		ac.setAccHoldername(account.getAccHoldername());
-		ac.setBalance(account.getBalance());
-		ac.setAccountType(account.getAccountType());
-		ac.setDateOfBirth(account.getDateOfBirth());
-		ac.setPsCode(account.getPsCode());
+//		Account ac = new Account();
+//		ac.setAccNo(account.getAccNo());
+//		ac.setAccHoldername(account.getAccHoldername());
+//		ac.setBalance(account.getBalance());
+//		ac.setAccountType(account.getAccountType());
+//		ac.setDateOfBirth(account.getDateOfBirth());
+//		ac.setPsCode(account.getPsCode());
 		try {
 			Session session = sessionFactory.getCurrentSession();
-			session.saveOrUpdate(ac);
+//			session.saveOrUpdate(ac);
+			session.save(account);
 		} catch (Exception e) {
 			e.printStackTrace();
 			saveFlag = false;
@@ -39,14 +40,16 @@ public class AccountDAOImpl implements AccountDAO{
 		return saveFlag;
 	}
 
+	@SuppressWarnings({ "deprecation", "unchecked" })
 	@Override
 	public List<Account> getAllUser() {
 		
 		List<Account> allData = new ArrayList<Account>();
 		Session session = sessionFactory.getCurrentSession();
 		try {
+			@SuppressWarnings("rawtypes")
 			Query query = session.createQuery("from Account");
-			allData = query.list();
+			allData = query.getResultList();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

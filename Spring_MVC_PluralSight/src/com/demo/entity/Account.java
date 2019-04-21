@@ -3,16 +3,24 @@ package com.demo.entity;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JacksonAnnotationValue;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializable;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -20,11 +28,11 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@SuppressWarnings("serial")
+
+
 @Entity
 @Table(name="Account_Details")
-public class Account implements Serializable {
+public class Account  {
 	
 	@Id
 	@Column
@@ -46,7 +54,18 @@ public class Account implements Serializable {
 	@Column
 	private String PsCode;
 	
+	@JsonManagedReference
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="account", cascade=CascadeType.ALL)
+	private Set<CreditCard> creditCard = new HashSet<CreditCard>();
 	
+	
+	public Set<CreditCard> getCreditCard() {
+		return creditCard;
+	}
+
+	public void setCreditCard(Set<CreditCard> creditCard) {
+		this.creditCard = creditCard;
+	}
 
 	/**
 	 * @param accNo

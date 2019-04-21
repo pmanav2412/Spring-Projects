@@ -1,5 +1,6 @@
 package com.demo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.demo.Services.AccountService;
 import com.demo.entity.Account;
+import com.demo.entity.CreditCard;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -59,13 +61,24 @@ public class UserController {
 	
 
 	@PostMapping(value="/saveData")
-	public String SeaHello( @Valid @ModelAttribute("Account") Account account, BindingResult result) {
+	public String SeaHello( @ModelAttribute("Account") Account account, BindingResult result) {
 	
-		accountService.saveAccount(account);
+		CreditCard cd= new CreditCard("MANAV A PATEL", "DISCOVER", 999, 87613685);
+		CreditCard cd1= new CreditCard("Deep  A PATEL", "Amax", 888, 87766685);
+		cd.setAccount(account);	
+		cd1.setAccount(account);	
+		account.getCreditCard().add(cd);
+		account.getCreditCard().add(cd1);
+	
 		
-		if(result.hasErrors())
-		return "AccountDetail-Form";
-	else
+		
+		accountService.saveAccount(account);
+//		
+//		if(result.hasErrors())
+//		return "AccountDetail-Form";
+//	else
+		
+		
 		return "Hello";
 		
 	}
@@ -81,15 +94,18 @@ public class UserController {
 //		return allData;
 //	}
 	
+	@ResponseBody
 	@GetMapping(value="/allData")
-	public String getAll(Model model){
+	public List<Account> getAll(Model model){
 		
 		List<Account> allData =accountService.getAllUser();
 		for(Account a:allData){
-			System.out.println(a.getAccHoldername() + "  " + a.getBalance() );
+			System.out.println(a.getAccHoldername() + "  " + a.getBalance() +" "+ a.getCreditCard().size() );
 		}
-	model.addAttribute("accounts", allData);
-		return "allUsers";
+		//model.addAttribute("accounts", allData);
+//		ObjectMapper mapper = new ObjectMapper();
+//		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+		return allData;
 	}
 	
 	
